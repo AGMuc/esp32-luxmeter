@@ -1,6 +1,6 @@
 # ESP32 Luxmeter - Photovoltaik-Planung
 
-> Batteriebetriebener Lux-Sensor auf ESP32-C3 + VEML7700 für Langzeitmessung zur PV-Ertragsplanung.
+> Batteriebetriebener Lux-Sensor auf ESP32-C3 + VEML7700 fuer Langzeitmessung zur PV-Ertragsplanung.
 > ESPHome + Home Assistant Integration. Akku-Warnung via Telegram.
 
 ## Komponenten
@@ -16,41 +16,23 @@
 
 ```
 ESP32-C3 → VEML7700
-────────────────
-3V3     → VIN
-GND     → GND
-GPIO4   → SDA
-GPIO5   → SCL
-
-Batterie ADC:
-GPIO0 ← Spannungsteiler 100k+100k ← LiPo+
+3V3 → VIN / GND → GND / GPIO4 → SDA / GPIO5 → SCL
+Batterie: GPIO0 ← Spannungsteiler 100k+100k ← LiPo+
 ```
-
-## Laufzeit
-
-- 15-Minuten-Intervall: ca. 66 Tage
-- 5-Minuten-Intervall: ca. 34 Tage
 
 ## Quickstart
 
-1. ESPHome-YAML (`esp32-lux.yaml`) hochladen
-2. Per USB flashen
-3. Kalibrierung (Glasfaktor): Sensor ohne/mit Deckel messen
-4. HA-Automation fuer Telegram-Akku-Warnung aktivieren
+1. `esp32-lux.yaml` in Home Assistant hochladen
+2. ESP32-C3 per USB flashen
+3. Kalibrierung (Glasfaktor): ohne/mit Deckel messen
+4. HA-Automation fuer Telegram-Akku-Warnung
 
-## HA-Automation (Telegram-Warnung)
+## Entwickelt mit KI-Assistenz
 
-```yaml
-- alias: "ESP32-Lux Akku leer"
-  trigger:
-    - platform: numeric_state
-      entity_id: sensor.esp32_lux_batteriespannung
-      below: 3.5
-  action:
-    - service: telegram_bot.send_message
-      data:
-        message: "ESP32-Lux Akku bei {{ states('sensor.esp32_lux_batteriespannung') }}V!"
-```
+- **VS Code + Zoo Code Extension**
+- **Architect/Editor-Routing:** DeepSeek V4 Pro (Planung) + V4 Flash (Code, Debug)
+- **GitHub MCP + Tavily MCP** fuer GitHub-Integration & Web-Recherche
+- **PlattformIO 6.1.19 + ESPHome 2026.5.3**
 
 ## Lizenz
 
