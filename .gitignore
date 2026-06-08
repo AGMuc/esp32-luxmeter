@@ -1,0 +1,6 @@
+# Secrets
+secrets.yaml
+.env
+
+# ESPHome
+.esphome/

@@ -1,0 +1,31 @@
+esphome:
+  name: esp32-lux
+  platform: ESP32
+  board: esp32-c3-devkitm-1
+
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+
+i2c:
+  sda: GPIO4
+  scl: GPIO5
+
+sensor:
+  - platform: veml7700
+    address: 0x10
+    update_interval: 60s
+    glass_attenuation_factor: 1.0
+    ambient_light: "Ambient Light"
+
+  - platform: adc
+    pin: GPIO0
+    name: "Batteriespannung"
+    unit_of_measurement: "V"
+    attenuation: 11db
+    filters:
+      - multiply: 4.2
+
+deep_sleep:
+  run_duration: 10s
+  sleep_duration: 15min
